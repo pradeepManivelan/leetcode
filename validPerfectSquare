@@ -1,0 +1,47 @@
+Given a positive integer num, write a function which returns True if num is a perfect square else False.
+
+Note: Do not use any built-in library function such as sqrt.
+
+Example 1:
+
+Input: 16
+Output: true
+Example 2:
+
+Input: 14
+Output: false
+
+Solution:
+
+Basically squareroot of a number will be between 2, num/2
+
+We can loop through these numbers and square them and check but Binary search would even more reduce the TC.
+
+Algo:
+---> if num < 2 then return true;
+---> Have two pointers start and end - num/2.
+--->Loop through them and if the guessdNum if less, skip the numbers before end
+---> else reduce the end by 1.
+
+
+class Solution {
+    public boolean isPerfectSquare(int num) {
+        if(num < 2) return true;
+        
+        long start = 2, end = num/2;
+        
+        while(start <= end){
+            long mid = start + (end - start)/2;
+            long guessedNum = mid * mid;
+            if(guessedNum == num) return true;
+            
+            else if(guessedNum < num){
+                start = mid + 1;
+            }
+            else{
+                end = mid - 1;
+            }
+        }return false;
+        
+    }
+}
