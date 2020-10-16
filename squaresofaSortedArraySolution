@@ -1,0 +1,49 @@
+Given an array of integers A sorted in non-decreasing order, return an array of the squares of each number, also in sorted non-decreasing order.
+Input: [-4,-1,0,3,10]
+Output: [0,1,9,16,100]
+
+class Solution {
+    public int[] sortedSquares(int[] A) {
+        int t = 0;
+        int[] temp = new int[A.length];
+        for(int i = 0;i < A.length;i++){
+            temp[i] = A[i] * A[i];
+        }
+        for (int i = 0; i < temp.length; i++) 
+        {
+            for (int j = i + 1; j < temp.length; j++) 
+            {
+                if (temp[i] > temp[j]) 
+                {
+                    t = temp[i];
+                    temp[i] = temp[j];
+                    temp[j] = t;
+                }
+            }
+        }
+        return temp;
+    }
+}
+
+Better Solution:
+
+
+class Solution {
+    public int[] sortedSquares(int[] A) {
+        int temp[] = new int[A.length];
+        int last = A.length - 1;
+        for(int i = 0,j = A.length-1;i <= j;){
+            if(Math.abs(A[i]) > Math.abs(A[j])){
+                temp[last--] = A[i] * A[i];
+                //System.out.println(temp[j]);
+                i++;
+            }else{
+                temp[last--] = A[j] * A[j];
+                j--;
+            }
+            //System.out.println(j);
+            //System.out.println(temp[j]);
+        }
+        return temp;
+}
+}
